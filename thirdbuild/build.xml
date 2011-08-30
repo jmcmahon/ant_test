@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<project name="secondbuild" default="execute">
+  <property file="build.properties" />
+<description>Compiles and runs a simple program</description>
+
+  <target name="init">
+    <mkdir dir="build/classes" />
+    <mkdir dir="dist" />
+  </target>
+
+  <target name="compile" depends="init"
+      description="Compiles the source code">
+    <javac srcdir="src"
+      destdir="build/classes"
+      />
+  </target>
+
+  <target name="archive" depends="compile"
+      description="Creates the JAR file">
+    <jar destfile="dist/project.jar"
+      basedir="build/classes"
+      />
+  </target>
+
+  <target name="clean" depends="init"
+      description="Removes the temporary directories used">
+    <delete dir="build" />
+    <delete dir="dist" />
+  </target>
+
+  <target name="execute" depends="compile"
+      description="Runs the program">
+    <echo level="warning" message="running" />
+    <java
+      classname="org.antbook.welcome.Main"
+      classpath="build/classes">
+      <arg value="a"/>
+      <arg value="b"/>
+      <arg file="."/>
+    </java>
+  </target>
+
+  <target name="echo" description="echoes some important properties">
+    <echo message="ant.file = ${ant.file}"/>
+    <echo message="ant.home = ${ant.home}"/>
+    <echo message="ant.java.version = ${ant.java.version}"/>
+    <echo>basedir = ${basedir}</echo>
+    <echo message="user.name = ${user.name}"/>
+    <echo message="user.home = ${user.home}"/>
+    <echo message="java.home = ${java.home}"/>
+    <echo message="test.name = ${test.name}"/>
+  </target>
+
+  <target name="echoxml">
+    <echoproperties format="xml"
+       destfile="current-properties.xml" />
+  </target>
+
+
+
+
+
+</project>
